@@ -20,4 +20,6 @@ jobs:
         pip install -r requirements.txt
 
     - name: Work!
+      env:
+        GITHUB_TOKEN: ${{ secrets.gh_token }}
       run: python work.py
