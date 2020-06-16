@@ -1,7 +1,7 @@
 import os
 import requests
 import json
-
+from datetime import datetime, timedelta
 
 class GithubActivity:
     _default_message = 'Populating activity grid...'
@@ -16,8 +16,65 @@ class GithubActivity:
     def commit(self):
         return "git commit --allow-empty --message '%s'" % self._default_message
 
-    def draw(self):
-        return("\n".join(["_" * 53] * 7))
+    def hire_me(self, today):
+        pixel_dates = []
+        current_week = today - timedelta(days=today.weekday())
+        start = current_week - timedelta(weeks=45)
+        # Letter H
+        for i in range(5):
+            pixel_dates.append(start + timedelta(days=i))
+        wednesday = start + timedelta(days=2)
+        pixel_dates.append(wednesday + timedelta(weeks=1))
+        pixel_dates.append(wednesday + timedelta(weeks=2))
+        for i in range(5):
+            pixel_dates.append(start + timedelta(weeks=3, days=i))
+        # Letter I
+        for i in range(5):
+            pixel_dates.append(start + timedelta(weeks=5, days=i))
+        # Letter R
+        for i in range(5):
+            pixel_dates.append(start + timedelta(weeks=7, days=i))
+        pixel_dates.append(start + timedelta(weeks=8, days=0))
+        pixel_dates.append(start + timedelta(weeks=8, days=2))
+
+        pixel_dates.append(start + timedelta(weeks=9, days=1))
+        pixel_dates.append(start + timedelta(weeks=9, days=3))
+        pixel_dates.append(start + timedelta(weeks=9, days=4))
+        # Letter E
+        for i in range(5):
+            pixel_dates.append(start + timedelta(weeks=11, days=i))
+
+        pixel_dates.append(start + timedelta(weeks=12, days=0))
+        pixel_dates.append(start + timedelta(weeks=12, days=2))
+        pixel_dates.append(start + timedelta(weeks=12, days=4))
+
+        pixel_dates.append(start + timedelta(weeks=13, days=0))
+        pixel_dates.append(start + timedelta(weeks=13, days=2))
+        pixel_dates.append(start + timedelta(weeks=13, days=4))
+        # Letter M
+        for i in range(5):
+            pixel_dates.append(start + timedelta(weeks=17, days=i))
+        pixel_dates.append(start + timedelta(weeks=18, days=1))
+        for i in range(5):
+            pixel_dates.append(start + timedelta(weeks=19, days=i))
+        # Letter E
+        for i in range(5):
+            pixel_dates.append(start + timedelta(weeks=21, days=i))
+
+        pixel_dates.append(start + timedelta(weeks=22, days=0))
+        pixel_dates.append(start + timedelta(weeks=22, days=2))
+        pixel_dates.append(start + timedelta(weeks=22, days=4))
+
+        pixel_dates.append(start + timedelta(weeks=23, days=0))
+        pixel_dates.append(start + timedelta(weeks=23, days=2))
+        pixel_dates.append(start + timedelta(weeks=23, days=4))
+
+        # Exclamation mark !
+        for i in range(3):
+            pixel_dates.append(start + timedelta(weeks=26, days=i))
+        pixel_dates.append(start + timedelta(weeks=26, days=4))
+
+        return(pixel_dates)
 
     def work(self):
         token = os.environ['GITHUB_TOKEN']
