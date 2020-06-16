@@ -24,10 +24,12 @@ class GithubActivity:
         repo = os.environ['GITHUB_REPOSITORY']
         os.system(self.config(token))
         os.system(f'git remote set-url origin https://x-access-token:{token}@github.com/{repo}.git')
-        # Checkout the branch so we can push back to it
         os.system('git checkout master')
+        # Remove old activity branch
+        os.system('git push origin :activity')
+        os.system('git checkout -b activity')
         os.system(self.commit())
-        os.system('git push origin master')
+        os.system('git push origin activity:activity')
 
 
 class Github:
