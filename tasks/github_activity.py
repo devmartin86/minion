@@ -79,13 +79,16 @@ class GithubActivity:
     def work(self):
         token = os.environ['GITHUB_TOKEN']
         repo = os.environ['GITHUB_REPOSITORY']
+        today = datetime.now()
         os.system(self.config(token))
         os.system(f'git remote set-url origin https://x-access-token:{token}@github.com/{repo}.git')
         os.system('git checkout master')
         # Remove old activity branch
         os.system('git push origin :activity')
         os.system('git checkout -b activity')
-        os.system(self.commit())
+        for d in self.hire_me(today):
+            for _i in range(3):
+                os.system(self.commit(date=d))
         os.system('git push origin activity:activity')
 
 
