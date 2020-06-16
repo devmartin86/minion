@@ -9,8 +9,9 @@ sys.path.append("..")
 
 class TestGithubActivity:
     def test_commit(self):
+        today = datetime.strptime('2020-06-16 12:08:35', '%Y-%m-%d %H:%M:%S')
         ga = GithubActivity()
-        assert ga.commit() == "git commit --allow-empty --message 'Populating activity grid...'"
+        assert ga.commit(date=today) == "git commit --allow-empty --date '2020-06-16 12:08:35' --message 'Populating activity grid...'"
 
     @vcr.use_cassette('tests/fixtures/vcr_cassettes/github_graphql_viewer.yaml')
     def test_config(self):

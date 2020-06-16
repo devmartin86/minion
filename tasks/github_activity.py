@@ -13,8 +13,8 @@ class GithubActivity:
         name = viewer['name']
         return f'git config user.email "{user_id}+{username}@users.noreply.github.com"\ngit config user.name "{name}"'
 
-    def commit(self):
-        return "git commit --allow-empty --message '%s'" % self._default_message
+    def commit(self, date):
+        return "git commit --allow-empty --date '%s' --message '%s'" %(date, self._default_message)
 
     def hire_me(self, today):
         pixel_dates = []
