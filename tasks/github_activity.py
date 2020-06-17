@@ -83,13 +83,15 @@ class GithubActivity:
         os.system(self.config(token))
         os.system(f'git remote set-url origin https://x-access-token:{token}@github.com/{repo}.git')
         os.system('git checkout master')
-        # Remove old activity branch
-        os.system('git push origin :activity')
-        os.system('git checkout -b activity')
+        # Remove old activity -> empty commits
+        commit = os.popen('git log -1 --author=\'Martin Duksis <devmartin86@gmail.com>\' --pretty=format:\'%h\'').read()
+        os.system(f'GIT_SEQUENCE_EDITOR=true git rebase -i {commit}~1')
+        # generate new activity
         for d in self.hire_me(today):
             for _i in range(3):
                 os.system(self.commit(date=d))
-        os.system('git push origin activity:activity')
+        # force replace old commits
+        os.system('git push origin master --force')
 
 
 class Github:
